@@ -77,6 +77,21 @@ server.get("/api/users/:id", function(request, response) {
 });
 
 //DELETE	/api/users/:id	Removes the user with the specified id and returns the deleted user.
+server.delete('/api/users/:id', function(request, response) {
+    const id = request.params.id;
+    ProjectData.remove(id)
+      .then((numbOfRecDel) => {
+        response.status(200).json(numbOfRecDel);
+      })
+      .catch( error => {
+        console.log(error);
+        response.status(500).json(
+          {
+            erroMessage: "It is BROKE!!!, U fix ITS"
+          }
+        )
+      })
+});
 
 //PUT	/api/users/:id	Updates the user with the specified id using data from the request body. Returns the modified document, NOT the original.
 
