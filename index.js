@@ -24,6 +24,22 @@ server.get("/", function(request, response) {
 });
 
 //POST	/api/users	Creates a user using the information sent inside the request body.
+server.post("/api/users", function(request, response) {
+  const newUser = request.body;
+  ProjectData.insert(newUser)
+    .then(users => {
+      console.log(users);
+      response.status(201).json(users);
+    })
+    .catch( error => {
+      console.log(error);
+      response.status(500).json(
+        {
+          erroMessage: "It is BROKE!!!, U fix ITS"
+        }
+      )
+    })
+});
 
 //GET	/api/users	Returns an array of all the user objects contained in the database.
 server.get("/api/users", function(request, response) {
