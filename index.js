@@ -43,6 +43,22 @@ server.get("/api/users", function(request, response) {
 });
 
 //GET	/api/users/:id	Returns the user object with the specified id.
+server.get("/api/users/:id", function(request, response) {
+  const id = request.params.id;
+  ProjectData.findById(id)
+    .then(users => {
+      response.status(200).json(users);
+      //console.log(users);
+    })
+    .catch( error => {
+      console.log(error);
+      response.status(500).json(
+        {
+          erroMessage: "It is BROKE!!!, U fix ITS"
+        }
+      )
+    })
+});
 
 //DELETE	/api/users/:id	Removes the user with the specified id and returns the deleted user.
 
