@@ -23,6 +23,23 @@ server.get("/", function(request, response) {
   response.send({meg: `I am running on ${port}`});
 });
 
+//GET	/api/users	Returns an array of all the user objects contained in the database.
+server.get("/api/users", function(request, response) {
+  ProjectData.find()
+    .then(users => {
+      response.status(200).json(users);
+      //console.log(users);
+    })
+    .catch( error => {
+      console.log(error);
+      response.status(500).json(
+        {
+          erroMessage: "It is BROKE!!!, U fix ITS"
+        }
+      )
+    })
+});
+
 
 //LISTEN SERVER
 const port = 8000;
